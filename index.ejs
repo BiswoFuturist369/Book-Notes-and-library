@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Book Notes</title>
+
+    <link rel="stylesheet" href="/styles/main.css">
+    </head>
+<body>
+  <h1>
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+      <path d="M1 2.828c.885-.37 2.154-.777 3.388-.893C6.466 1.767 8 3 8 3s1.534-1.233 3.612-1.065c1.234.116 2.503.523 3.388.893V14c-.885-.37-2.154-.777-3.388-.893C9.534 13.233 8 15 8 15s-1.534-1.767-3.612-1.065C3.154 13.223 1.885 13.63 1 14V2.828z"/>
+    </svg>
+    My Book Notes
+  </h1>
+
+  <form action="/add" method="post">
+    <input type="text" name="bname" placeholder="Book Name" required>
+    <input type="number" name="rating" placeholder="Rating" required>
+    <input type="number" name="recency" placeholder="Year of Read" required>
+    <input type="text" name="notes" placeholder="Your Notes" required>
+    <button class="add-btn" type="submit">Add Book</button>
+  </form>
+
+  <h2>My Book List</h2>
+  <% books.forEach(function(book) { %>
+    <div class="book">
+      <h2><%= book.bname %> (<%= book.recency %>)</h2>
+      <p><strong>Rating:</strong> <%= book.rating %>/10</p>
+      <p><%= book.notes %></p>
+      <form action="/delete" method="post" style="display:inline-block">
+        <input type="hidden" name="id" value="<%= book.id %>">
+        <button class="delete-btn" type="submit">Delete</button>
+      </form>
+
+      <form action="/edit" method="post">
+        <input type="hidden" name="id" value="<%= book.id %>">
+        <input type="text" name="bname" value="<%= book.bname %>">
+        <input type="number" name="rating" value="<%= book.rating %>">
+        <input type="number" name="recency" value="<%= book.recency %>">
+        <textarea name="notes"><%= book.notes %></textarea>
+        <button class="edit-btn" type="submit">Edit</button>
+     </form>
+
+    </div>
+  <% }); %>
+</body>
+</html>
